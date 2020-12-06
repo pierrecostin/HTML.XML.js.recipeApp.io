@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Palette Zen</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="styles.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="script.js"></script>
+	
+</head>
+<body>
+	<center padding-right="700px">
+	  <img src="Images/zenlogo.png" width="280" height="126" alt=""/>
+    </center>
+	<div class="topnav" id="myTopnav">
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+		<i class="fa fa-bars"></i>
+	  </a>
+	  <a href="#home" class="active navbutton" id="homepage">Accueil</a>
+	  <a href="#news" class="navbutton" id="Dessert">Desserts</a>
+	  <a href="#contact" class="navbutton" id="Poissons">Poissons</a>
+	  <a href="#about" class="navbutton" id="Poulet">Poulet</a>
+	</div> 
+	<div>
+		<center>
+			<form>
+				<input type="text" placeholder="Rechercher">
+			</form>
+		</center>
+	</div> 
+	
+	<div id="contentContainer">
+	
+		<div class="row" id="recette">
+		</div>
+		<div class="row" id="fullRecette">
+			<div id="imageSide">
+		      <div class="image" id="card1">
+				  
+		         <img id="frImg" align="left" width="50%" height="750" alt=""/>
+	          </div>
+	        </div>
+	        <div id="recipeSide">
+		         <div font-size="large" class="title" id="card2">
+		         </div>
+		         <div class="" id="card3">
+					 <div id="prep"></div>
+					 <div id="cook"></div>
+					 <div id="portion"></div>
+		         </div>
+		         <div class="ingredientList" id="card4">
+		         </div>
+	
+	        </div>
+	<div id="instructionSection">
+	    <div class="instructionList" id="card5">
+		</div>
+	
+	</div>
+		</div>
+		
+	</div>
+		<div>
+	<footer class="footer" >
+		<center>
+	<div id="meteo"></div>
+			</center>
+		</footer>
+			<footer>
+				<center>
+		<div id="luck">
+	  <img src="Images/luck.png" float="right" width="150" height="126" alt=""/>
+		</div>
+			</center>
+	</footer>
+			</div>
+	
+</body>
+</html>

@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+</head>
+<html>
+<h1>Exemple: Charger les recettes XML</h1>
+
+<section id="recette"> </section>
+
+</html>
+
+</html>
+
+<script>
+    /*
+     * ===================================================================
+     * Définir une classe "Recette" pour décrire une recette en respectant
+     * la structure des recettes qui se trouve dans le fichier XML
+     * ===================================================================
+     */
+    class Recette {
+        id;
+        title;
+        image;
+        category;
+        preptime;
+        cooktime;
+        portion;
+        ingredientList;
+        instructionList;
+
+        constructor(id, title, image) {
+            this.id = id;
+            this.title = title;
+            this.image = image;
+        }
+    }
+
+    /*
+     * ====================================================================
+     * Début du script JS
+     * ====================================================================
+     */
+
+    // Variables globales
+    recettes = Array();
+    let url = 'recettes.xml';
+   
+    // Après le chargement de la page HTML
+    window.onload = function(e) {  
+        fetch(url)
+            .then(reponse => reponse.text())          // Recevoir, du serveur Web, une chaine de caractères contenant le XML
+            .then(xmlText => remplirTableau(xmlText)) // Remplir le tableau d'objet avec les informations du XML
+            .then(() => listeRecette(recettes));      // Afficher le titre des recettes
+    }
+
+    /*
+     * ===================================================================
+     * Déclaration des fonctions
+     * ===================================================================
+     */
+    function remplirTableau(xmlText) {
+        let parser = new DOMParser();
+        let xmlDoc = parser.parseFromString(xmlText, "application/xml"); // la variable xmlDoc contient maintenat un document XML
+
+        let tabRecettes = xmlDoc.getElementsByTagName("recipe"); // la variable tabRecettes contient un tableaux de recettes XML
+
+        for (let i = 0; i < tabRecettes.length; i++) {
+            let recette = new Recette(); // Créer une nouvelle recette
+
+            recette.id = +tabRecettes[i].getAttribute("id");
+            recette.title = tabRecettes[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+            recette.image = tabRecettes[i].getElementsByTagName("image")[0].childNodes[0].nodeValue;
+            recette.category = tabRecettes[i].getElementsByTagName("category")[0].childNodes[0].nodeValue;
+            recette.preptime = tabRecettes[i].getElementsByTagName("preptime")[0].childNodes[0].nodeValue;
+            recette.cooktime = tabRecettes[i].getElementsByTagName("cooktime")[0].childNodes[0].nodeValue;
+            recette.portion = tabRecettes[i].getElementsByTagName("yield")[0].childNodes[0].nodeValue;
+
+            let tabIngredient = tabRecettes[i].getElementsByTagName("ingredient_list")[0].getElementsByTagName("ingredient");
+            recette.ingredientList = Array();
+            for (let j = 0; j < tabIngredient.length; j++) {
+                recette.ingredientList.push(tabIngredient[j].childNodes[0].nodeValue);
+                //console.log(tabIngredient[j].childNodes[0].nodeValue);
+            }
+            let tabInstruction = tabRecettes[i].getElementsByTagName("instruction_list")[0].getElementsByTagName("instruction");
+            recette.instructionList = Array();
+            for (let j = 0; j < tabInstruction.length; j++) {
+                recette.instructionList.push(tabInstruction[j].childNodes[0].nodeValue);
+                //console.log(tabInstruction[j].childNodes[0].nodeValue);
+            }
+
+            this.recettes.push(recette); // Ajouter la recette dans le tableau de recettes
+        }
+    }
+
+    function listeRecette(liste) {
+        let contenu = "<article>";
+
+        for (let i = 0; i < liste.length; i++) {
+            contenu += "<h1>" + liste[i].title + "</h1>";
+        }
+
+        contenu += '</article>';
+
+        document.getElementById("recette").innerHTML = contenu;
+    }
+</script>
